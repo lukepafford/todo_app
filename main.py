@@ -1,4 +1,3 @@
-from typing import List
 from fastapi import FastAPI
 from todo_app.schemas import Todo
 from todo_app.uow import SqlAlchemyTodoUnitOfWork
