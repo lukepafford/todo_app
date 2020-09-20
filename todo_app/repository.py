@@ -38,15 +38,15 @@ class UpsertTodoMixin:
 
 
 class FakeRepository(AbstractRepository, UpsertTodoMixin):
-    def __init__(self):
-        self.db = set()
+    def __init__(self, db=list()):
+        self.db = db
         self.counter = 1
 
     def add(self, todo: schemas.Todo):
         todo_model = Todo(**todo.dict())
         todo_model.id = self.counter
         self.counter += 1
-        self.db.add(todo_model)
+        self.db.append(todo_model)
 
     def get(self, todo_id: int):
         for item in self.db:
