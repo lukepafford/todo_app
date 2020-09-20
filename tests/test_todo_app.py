@@ -68,8 +68,9 @@ def test_add_todo(fake_uow, todo_item):
 
 
 def test_delete_todo(fake_uow, todo_items):
-    delete_todo(fake_uow, todo_items[0].id)
+    deleted_todo = delete_todo(fake_uow, todo_items[0].id)
     assert len(list_todo(fake_uow)) == 2
+    assert deleted_todo.id == 2
 
 
 def test_upsert_todo(fake_uow, todo_items):

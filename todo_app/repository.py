@@ -32,9 +32,11 @@ class UpsertTodoMixin:
             old_todo.description = todo.description
             old_todo.completed = todo.completed
             old_todo.updated_at = datetime.datetime.now()
+            return old_todo
         else:
             todo.id = id
             self.add(todo)
+            return todo
 
 
 class FakeRepository(AbstractRepository, UpsertTodoMixin):
@@ -47,6 +49,7 @@ class FakeRepository(AbstractRepository, UpsertTodoMixin):
         todo_model.id = self.counter
         self.counter += 1
         self.db.append(todo_model)
+        return todo_model
 
     def get(self, todo_id: int):
         for item in self.db:
@@ -56,7 +59,11 @@ class FakeRepository(AbstractRepository, UpsertTodoMixin):
             return None
 
     def delete(self, todo_id: int):
-        self.db = [item for item in self.db if item.id != todo_id]
+        for todo in self.db:
+            if todo.id == todo_id:
+                break
+        self.db.remove(todo)
+        return todo
 
     def list(self):
         return self.db
@@ -69,6 +76,7 @@ class TodoRepository(AbstractRepository, UpsertTodoMixin):
     def add(self, todo: schemas.Todo):
         todo_model = Todo(**todo.dict())
         self.session.add(todo_model)
+        return todo_model
 
     def get(self, todo_id: int):
         return self.session.query(Todo).filter(Todo.id == todo_id).first()
@@ -77,6 +85,7 @@ class TodoRepository(AbstractRepository, UpsertTodoMixin):
         todo = self.get(todo_id)
         if todo:
             self.session.delete(todo)
+            return todo
 
     def list(self):
         return self.session.query(Todo).all()
