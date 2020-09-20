@@ -9,6 +9,7 @@ class OrmBaseModel(BaseModel):
 
 
 class Todo(OrmBaseModel):
+    id: Optional[int]
     title: str
     description: Optional[str] = None
     completed: Optional[bool] = False
