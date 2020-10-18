@@ -1,6 +1,6 @@
 from typing import List
 from fastapi import FastAPI, Depends
-from todo_app.schemas import Todo
+from todo_app.domain.schemas import Todo
 from todo_app.uow import SqlAlchemyTodoUnitOfWork
 
 from todo_app.services import (

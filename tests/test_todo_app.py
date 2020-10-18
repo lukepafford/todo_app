@@ -1,6 +1,7 @@
 import pytest
 from todo_app import __version__
-from todo_app import schemas, orm
+from todo_app import orm
+from todo_app.domain import schemas
 from todo_app.repository import FakeRepository
 from todo_app.uow import FakeTodoUnitOfWork
 from todo_app.services import list_todo, add_todo, upsert_todo, delete_todo

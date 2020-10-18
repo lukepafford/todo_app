@@ -1,5 +1,5 @@
 from todo_app.uow import AbstractUnitOfWork
-from todo_app import schemas
+from todo_app.domain import schemas
 
 
 def list_todo(uow: AbstractUnitOfWork):

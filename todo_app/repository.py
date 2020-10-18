@@ -1,6 +1,6 @@
 from sqlalchemy.orm import session
 from todo_app.orm import Todo
-from todo_app import schemas
+from todo_app.domain import schemas
 import datetime
 
 from abc import ABC, abstractmethod
